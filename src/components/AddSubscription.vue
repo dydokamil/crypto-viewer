@@ -12,12 +12,16 @@
 </template>
 
 <script>
-import { mapActions } from "vuex"
+import { mapActions, mapGetters } from "vuex"
 
 export default {
+  computed: {
+    ...mapGetters(["coinList"]),
+  },
   data: () => ({
     from: "BTC",
     to: "USD",
+    selected: null,
   }),
   methods: {
     ...mapActions(["addSubscription"]),

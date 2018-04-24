@@ -1,8 +1,10 @@
 import io from "socket.io-client"
+import axios from "axios"
 
 export const state = {
   subscriptions: {},
   socket: null,
+  coinList: null,
 }
 
 export const normalizeId = unnormalized =>
@@ -36,6 +38,10 @@ export const mutations = {
 
   _initSocket: (state, socket) => {
     state.socket = socket
+  },
+
+  _initCoinList: (state, data) => {
+    state.coinList = data
   },
 }
 
@@ -78,10 +84,31 @@ export const actions = {
       if (id.length) commit("_updateData", { id, ...namedData })
     })
   },
+  initCoinList: ({ commit }) => {
+    const URL = "https://min-api.cryptocompare.com/data/all/coinlist"
+
+    axios
+      .get(URL)
+      .then(res => {
+        console.log(res.data)
+        const data = Object.values(res.data.Data)
+        const coinData = data.map(coin => ({
+          id: coin.Id,
+          imageUrl: coin.ImageUrl,
+          // name: coin.CoinName,
+          fullName: coin.FullName,
+          // shortName: coin.Name,
+        }))
+        console.log(coinData)
+        commit("_initCoinList", coinData)
+      })
+      .catch(err => console.log(err))
+  },
 }
 
 export const getters = {
   subscriptions: state => state.subscriptions,
+  coinList: state => state.coinList,
 }
 
 export default { state, mutations, actions, getters }

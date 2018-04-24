@@ -19,7 +19,7 @@ import AddSubscription from "./AddSubscription.vue"
 
 export default {
   computed: {
-    ...mapGetters(["subscriptions"]),
+    ...mapGetters(["subscriptions", "initCoinList"]),
     // subscriptions: this.$store.getters.subscriptions,
   },
   methods: { ...mapActions(["initSocket"]) },
@@ -32,7 +32,7 @@ export default {
   },
   created() {
     this.$store.dispatch("initSocket")
-    console.log("home", this.subscriptions)
+    this.$store.dispatch("initCoinList")
   },
 }
 </script>

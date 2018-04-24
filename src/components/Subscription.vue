@@ -5,9 +5,12 @@
       <div v-if="subscription.price === 0"
            class='subscription-middle'>Loading...</div>
       <div v-else
+           :class="{
+             down: subscription.flag === '2',
+             up: subscription.flag === '1'
+           }"
            class='subscription-middle'>{{ subscription.price }}</div>
       <div class='subscription-right'>{{ subscription.to }}</div>
-      <!-- {{ subscription }} -->
     </div>
   </div>
 </template>
@@ -21,15 +24,17 @@ export default {
   data: () => ({
     info: "",
   }),
-
-  created() {
-    console.log("Created Subscription.")
-    console.log(this.subscription)
-  },
 }
 </script>
 
 <style>
+.down {
+  color: #b85142;
+}
+.up {
+  color: #42b883;
+}
+
 .subscription {
   display: flex;
   padding: 1rem;
