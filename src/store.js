@@ -13,11 +13,11 @@ export const normalizeId = unnormalized =>
 
 export const mutations = {
   _addSubscription: (state, subscription) => {
-    const { id, url } = subscription
+    const { id, url, from, to } = subscription
 
     state.subscriptions = {
       ...state.subscriptions,
-      [id]: { url },
+      [id]: { url, from, to, price: 0, id },
     }
     state.socket.emit("SubAdd", { subs: [url] })
   },
@@ -28,7 +28,10 @@ export const mutations = {
   },
 
   _updateData: (state, payload) => {
-    state.subscriptions[payload.id] = payload.message
+    state.subscriptions[payload.id] = {
+      ...state.subscriptions[payload.id],
+      ...payload,
+    }
   },
 
   _initSocket: (state, socket) => {
@@ -40,6 +43,8 @@ export const actions = {
   addSubscription: ({ commit }, payload) =>
     commit("_addSubscription", {
       id: `${payload.from}${payload.to}`,
+      from: payload.from,
+      to: payload.to,
       url: `2~Poloniex~${payload.from}~${payload.to}`,
     }),
   removeSubscription: ({ commit }, payload) =>
@@ -49,9 +54,28 @@ export const actions = {
     commit("_initSocket", socket)
 
     socket.on("m", message => {
+      // {Type}~{ExchangeName}~{FromCurrency}~{ToCurrency}~{Flag}~{Price}~
+      // {LastUpdate}~{LastVolume}~{LastVolumeTo}~{LastTradeId}~{Volume24h}~
+      // {Volume24hTo}~{MaskInt}
+      console.log(message)
       const id = normalizeId(message)
+      const dataSplit = message.split("~")
 
-      if (id.length) commit("_updateData", { id, message })
+      if (dataSplit[4] === "4") {
+        return
+      }
+
+      const namedData = {
+        flag: dataSplit[4],
+        price: dataSplit[5],
+        // lastUpdate: dataSplit[6],
+        lastVolume: dataSplit[7],
+        lastVolumeTo: dataSplit[8],
+        volume24h: dataSplit[10],
+        volume24hTo: dataSplit[11],
+      }
+
+      if (id.length) commit("_updateData", { id, ...namedData })
     })
   },
 }

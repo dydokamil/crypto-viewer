@@ -1,6 +1,14 @@
 <template>
-  <div>
-    {{ subscription }}
+  <div class='subscription-container'>
+    <div class='subscription'>
+      <div class='subscription-left'>{{ subscription.from }}</div>
+      <div v-if="subscription.price === 0"
+           class='subscription-middle'>Loading...</div>
+      <div v-else
+           class='subscription-middle'>{{ subscription.price }}</div>
+      <div class='subscription-right'>{{ subscription.to }}</div>
+      <!-- {{ subscription }} -->
+    </div>
   </div>
 </template>
 
@@ -20,4 +28,31 @@ export default {
   },
 }
 </script>
+
+<style>
+.subscription {
+  display: flex;
+  padding: 1rem;
+  border-radius: 15px;
+  border: 1px solid #e3e3e3;
+}
+
+.subscription-middle {
+  flex: 3;
+}
+
+.subscription-left {
+  flex: 1;
+}
+
+.subscription-right {
+  flex: 1;
+  margin-left: auto;
+}
+
+.subscription-container {
+  margin-bottom: 1rem;
+}
+</style>
+
 

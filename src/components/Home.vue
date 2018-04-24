@@ -2,8 +2,11 @@
   <div class="hello">
     <h1>Crypto Viewer</h1>
     <AddSubscription></AddSubscription>
-    <Subscription :subscription="subscription"
-                  v-for="subscription in subscriptions">{{ subscription }}</Subscription>
+    <transition-group name='slide'>
+      <Subscription :key="subscription.id"
+                    :subscription="subscription"
+                    v-for="subscription in subscriptions"></Subscription>
+    </transition-group>
   </div>
 </template>
 
@@ -36,6 +39,19 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.video-list {
+  list-style-type: none;
+}
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 150ms;
+}
+.slide-enter,
+.slide-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
 h3 {
   margin: 40px 0 0;
 }
