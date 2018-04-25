@@ -97,7 +97,7 @@ export const actions = {
           imageUrl: coin.ImageUrl,
           // name: coin.CoinName,
           fullName: coin.FullName,
-          // shortName: coin.Name,
+          shortName: coin.Name,
         }))
         coinData = _.sortBy(coinData, "fullName")
         // console.log(coinData)

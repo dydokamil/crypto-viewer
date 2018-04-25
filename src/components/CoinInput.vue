@@ -7,7 +7,8 @@
     <coin-choices :query="query"
                   :chooseCoin='chooseCoin'
                   :closeChoices='closeChoices'
-                  v-if='showChoices'></coin-choices>
+                  v-if='showChoices 
+                    && query.length > 0'></coin-choices>
   </div>
 </template>
 
@@ -17,7 +18,7 @@ import CoinChoices from "./CoinChoices.vue"
 
 export default {
   data: () => ({
-    showChoices: false,
+    showChoices: true,
     query: "",
   }),
   props: ["direction"],
@@ -29,8 +30,12 @@ export default {
       this.showChoices = false
     },
     chooseCoin(coin) {
-      this.showChoices = false
+      this.closeChoices()
       this.query = coin
+
+      console.log(this.direction)
+
+      this.$emit("changeCurrency", this.query)
     },
   },
   components: {

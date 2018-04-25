@@ -1,7 +1,7 @@
 <template>
   <div class="list-container">
     <div class="close">
-      <button @click.prevent='closeChoices'>x</button>
+      <button @click.prevent='closeChoices'>Close</button>
     </div>
     <div class="list">
       <coin-choice :key="coin.id"
@@ -51,18 +51,19 @@ export default {
 .close {
   position: absolute;
   z-index: 2;
-  left: 184px;
-  top: -27px;
+  /* top: 270px; */
+  top: 51vh;
   font-size: large;
-  width: 10px;
-  height: 10px;
 }
 
 .close button {
-  background: transparent;
+  /* background: transparent; */
+  background: white;
   font-size: large;
-  /* border: none; */
-  border-radius: 50%;
+  width: 280px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+  padding: 0.5rem;
   cursor: pointer;
 }
 
@@ -78,17 +79,19 @@ export default {
   position: absolute;
   z-index: 1;
 
-  left: calc(50% - 90px);
-  top: calc(50% - 130px);
+  left: calc(50% - 140px);
+  /* top: calc(50% - 130px); */
+  /* top: 25vh; */
 
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: auto; */
+  /* margin-right: auto; */
 }
 .list {
   overflow: auto;
 
-  width: 180px;
-  height: 260px;
+  width: 280px;
+  /* height: 260px; */
+  height: 50vh;
 
   border-radius: 5px;
 

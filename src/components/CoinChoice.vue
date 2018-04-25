@@ -1,8 +1,13 @@
 <template>
   <div @click="onClickItem"
        class='list-item'>
-    <img v-if="query.length >= 3"
-         :src="imageSrc"> {{ coin.fullName }}
+    <div class='image-container'
+         v-if="query.length >= 3">
+      <img :src="imageSrc">
+    </div>
+    <div class="info-container">
+      {{ coin.fullName }}
+    </div>
   </div>
 </template>
 
@@ -26,8 +31,7 @@ export default {
   },
   methods: {
     onClickItem() {
-      this.chooseCoin(this.coin.fullName)
-      // console.log(this.coin)
+      this.chooseCoin(this.coin.shortName)
     },
   },
 }
@@ -35,12 +39,26 @@ export default {
 
 <style scoped>
 .list-item {
+  display: flex;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
 .list-item:hover {
   background-color: #e3e3e3;
   cursor: pointer;
+}
+
+.image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.info-container {
+  flex: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 img {

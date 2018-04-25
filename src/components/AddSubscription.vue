@@ -1,15 +1,13 @@
 <template>
   <form>
     <div class='input-group'>
-      <coin-input direction="From"></coin-input>
-      <coin-input direction="To"></coin-input>
+      <coin-input v-model="from"
+                  @changeCurrency="setCurrency('from', $event)"
+                  direction="From"></coin-input>
+      <coin-input v-model="to"
+                  @changeCurrency="setCurrency('to', $event)"
+                  direction="To"></coin-input>
     </div>
-    <!-- <div class='input-group'>
-      <input v-model="from"
-             placeholder="From">
-      <input v-model="to"
-             placeholder="To">
-    </div> -->
     <button @click.prevent='newSubscription'
             type="submit">Add</button>
   </form>
@@ -25,8 +23,8 @@ export default {
     ...mapGetters(["coinList"]),
   },
   data: () => ({
-    from: "BTC",
-    to: "USD",
+    from: "",
+    to: "",
   }),
   components: {
     CoinInput,
@@ -34,11 +32,21 @@ export default {
   methods: {
     ...mapActions(["addSubscription"]),
     newSubscription() {
-      this.$store.dispatch("addSubscription", {
-        from: this.from,
-        to: this.to,
-      })
-      this.from = this.to = ""
+      if (this.from.length && this.to.length) {
+        this.$store.dispatch("addSubscription", {
+          from: this.from,
+          to: this.to,
+        })
+        // this.from = this.to = ""
+      }
+    },
+    setCurrency(direction, value) {
+      if (direction === "from") {
+        this.from = value
+      } else if (direction === "to") {
+        this.to = value
+      }
+      console.log("new state", this.from, this.to)
     },
   },
 }
