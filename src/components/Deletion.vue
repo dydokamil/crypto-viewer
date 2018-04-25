@@ -34,6 +34,10 @@ export default {
 </script>
 
 <style scoped>
+.subscription-middle {
+  padding: 0.88rem;
+}
+
 button {
   background: transparent;
   border: none;
