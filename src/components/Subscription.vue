@@ -8,11 +8,12 @@
       <div v-if="subscription.price === 0"
            class='subscription-middle'>Loading...</div>
       <div v-else
-           :class="{
-             down: subscription.flag === '2',
-             up: subscription.flag === '1'
-           }"
-           class='subscription-middle'>{{ subscription.price }}</div>
+           class='subscription-middle'>
+        <span :class="{
+             down: subscription.flag === 1,
+             up: subscription.flag === 2
+           }">{{ subscription.price }}</span>
+      </div>
       <div class='subscription-right'>
         <img :src="imageTo">
         <div>{{ subscription.to }}</div>

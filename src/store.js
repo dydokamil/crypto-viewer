@@ -31,9 +31,21 @@ export const mutations = {
   // },
 
   _updateData: (state, payload) => {
+    let flag = 0
+
+    const previousPrice = state.subscriptions[payload.id].price
+    const currentPrice = payload.price
+
+    if (previousPrice > currentPrice) {
+      flag = 1
+    } else if (previousPrice < currentPrice) {
+      flag = 2
+    }
+
     state.subscriptions[payload.id] = {
       ...state.subscriptions[payload.id],
       ...payload,
+      flag,
     }
   },
 
