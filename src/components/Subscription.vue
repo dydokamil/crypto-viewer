@@ -1,5 +1,6 @@
 <template>
-  <div class='subscription-container'>
+  <div @click="$emit('flipComponent')"
+       class='subscription-container'>
     <div class='subscription'>
       <div class='subscription-left'>
         <img :src="imageFrom">
@@ -112,6 +113,7 @@ export default {
 
 .subscription-container {
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 img {

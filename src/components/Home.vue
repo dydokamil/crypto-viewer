@@ -3,9 +3,9 @@
     <h1>Crypto Viewer</h1>
     <add-subscription></add-subscription>
     <transition-group name='slide'>
-      <Subscription :key="subscription.id"
-                    :subscription="subscription"
-                    v-for="subscription in subscriptions"></Subscription>
+      <SubscriptionContainer :key="subscription.id"
+                             :subscription="subscription"
+                             v-for="subscription in subscriptions"></SubscriptionContainer>
     </transition-group>
   </div>
 </template>
@@ -13,7 +13,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex"
 
-import Subscription from "./Subscription.vue"
+import SubscriptionContainer from "./SubscriptionContainer.vue"
 import AddSubscription from "./AddSubscription.vue"
 
 export default {
@@ -26,7 +26,7 @@ export default {
     msg: String,
   },
   components: {
-    Subscription,
+    SubscriptionContainer,
     AddSubscription,
   },
   created() {
