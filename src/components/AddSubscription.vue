@@ -1,11 +1,15 @@
 <template>
   <form>
     <div class='input-group'>
+      <coin-input direction="From"></coin-input>
+      <coin-input direction="To"></coin-input>
+    </div>
+    <!-- <div class='input-group'>
       <input v-model="from"
              placeholder="From">
       <input v-model="to"
              placeholder="To">
-    </div>
+    </div> -->
     <button @click.prevent='newSubscription'
             type="submit">Add</button>
   </form>
@@ -14,6 +18,8 @@
 <script>
 import { mapActions, mapGetters } from "vuex"
 
+import CoinInput from "./CoinInput.vue"
+
 export default {
   computed: {
     ...mapGetters(["coinList"]),
@@ -21,8 +27,10 @@ export default {
   data: () => ({
     from: "BTC",
     to: "USD",
-    selected: null,
   }),
+  components: {
+    CoinInput,
+  },
   methods: {
     ...mapActions(["addSubscription"]),
     newSubscription() {
@@ -37,7 +45,7 @@ export default {
 </script>
 
 <style scoped>
-.input-group > input {
+.input-group input {
   padding: 0.5rem;
   outline: none;
   border: 1px solid #e3e3e3;

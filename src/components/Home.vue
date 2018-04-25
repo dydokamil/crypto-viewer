@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>Crypto Viewer</h1>
-    <AddSubscription></AddSubscription>
+    <add-subscription></add-subscription>
     <transition-group name='slide'>
       <Subscription :key="subscription.id"
                     :subscription="subscription"
@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import io from "socket.io-client"
 import { mapActions, mapGetters } from "vuex"
 
 import Subscription from "./Subscription.vue"

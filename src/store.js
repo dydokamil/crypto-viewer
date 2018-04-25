@@ -1,5 +1,6 @@
 import io from "socket.io-client"
 import axios from "axios"
+import _ from "lodash"
 
 export const state = {
   subscriptions: {},
@@ -63,7 +64,7 @@ export const actions = {
       // {Type}~{ExchangeName}~{FromCurrency}~{ToCurrency}~{Flag}~{Price}~
       // {LastUpdate}~{LastVolume}~{LastVolumeTo}~{LastTradeId}~{Volume24h}~
       // {Volume24hTo}~{MaskInt}
-      console.log(message)
+      // console.log(message)
       const id = normalizeId(message)
       const dataSplit = message.split("~")
 
@@ -90,16 +91,16 @@ export const actions = {
     axios
       .get(URL)
       .then(res => {
-        console.log(res.data)
         const data = Object.values(res.data.Data)
-        const coinData = data.map(coin => ({
+        let coinData = data.map(coin => ({
           id: coin.Id,
           imageUrl: coin.ImageUrl,
           // name: coin.CoinName,
           fullName: coin.FullName,
           // shortName: coin.Name,
         }))
-        console.log(coinData)
+        coinData = _.sortBy(coinData, "fullName")
+        // console.log(coinData)
         commit("_initCoinList", coinData)
       })
       .catch(err => console.log(err))
