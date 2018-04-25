@@ -18,10 +18,10 @@ import AddSubscription from "./AddSubscription.vue"
 
 export default {
   computed: {
-    ...mapGetters(["subscriptions", "initCoinList"]),
+    ...mapGetters(["subscriptions"]),
     // subscriptions: this.$store.getters.subscriptions,
   },
-  methods: { ...mapActions(["initSocket"]) },
+  methods: { ...mapActions(["initCoinList"]) },
   props: {
     msg: String,
   },

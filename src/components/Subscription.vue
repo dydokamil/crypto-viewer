@@ -45,26 +45,6 @@ export default {
   methods: {
     ...mapActions(["updateData"]),
   },
-
-  created() {
-    const { from, to, id, url } = this.subscription
-
-    const fetchData = () => {
-      axios.get(url).then(res => {
-        this.$store.dispatch("updateData", {
-          id,
-          price: res.data[to],
-        })
-      })
-    }
-
-    fetchData()
-    this.interval = setInterval(fetchData, 10000)
-  },
-
-  beforeDestroy() {
-    clearInterval(this.interval)
-  },
 }
 </script>
 

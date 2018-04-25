@@ -24,11 +24,10 @@ export const mutations = {
       [id]: { ...subscription, price: 0 },
     }
   },
-  // _removeSubscription: (state, subscriptionId) => {
-  //   state.subscriptions = state.subscriptions.filter(
-  //     subscription => subscription.id !== subscriptionId,
-  //   )
-  // },
+  _removeSubscription: (state, subscriptionId) => {
+    clearInterval(state.subscriptions[subscriptionId].interval)
+    state.subscriptions = _.omit(state.subscriptions, subscriptionId)
+  },
 
   _updateData: (state, payload) => {
     let flag = 0
@@ -67,16 +66,29 @@ export const actions = {
     const imageUrlFrom = fromEntry.imageUrl
     const imageUrlTo = toEntry.imageUrl
 
+    const fetchData = () => {
+      axios.get(url).then(res => {
+        commit("_updateData", {
+          id,
+          price: res.data[to],
+        })
+      })
+    }
+
+    fetchData()
+    const interval = setInterval(fetchData, 10000)
+
     commit("_addSubscription", {
       ...payload,
       id,
       url,
       imageUrlFrom,
       imageUrlTo,
+      interval,
     })
   },
-  // removeSubscription: ({ commit }, payload) =>
-  //   commit("_removeSubscription", payload),
+  removeSubscription: ({ commit }, payload) =>
+    commit("_removeSubscription", payload.id),
 
   updateData: ({ commit }, payload) => {
     commit("_updateData", payload)

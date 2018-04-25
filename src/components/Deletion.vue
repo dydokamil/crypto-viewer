@@ -4,7 +4,7 @@
 
       <div class='subscription-middle'>
         <button @click.prevent="$emit('flipComponent')">Back</button>
-        <button>Delete</button>
+        <button @click.prevent="deleteSubscription">Delete</button>
       </div>
 
     </div>
@@ -24,6 +24,12 @@ export default {
     info: "",
     interval: null,
   }),
+
+  methods: {
+    deleteSubscription() {
+      this.$store.dispatch("removeSubscription", { id: this.subscription.id })
+    },
+  },
 }
 </script>
 
