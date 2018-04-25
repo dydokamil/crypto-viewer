@@ -30,7 +30,7 @@ export default {
     AddSubscription,
   },
   created() {
-    this.$store.dispatch("initSocket")
+    // this.$store.dispatch("initSocket")
     this.$store.dispatch("initCoinList")
   },
 }

@@ -1,7 +1,10 @@
 <template>
   <div class='subscription-container'>
     <div class='subscription'>
-      <div class='subscription-left'>{{ subscription.from }}</div>
+      <div class='subscription-left'>
+        <img :src="imageFrom">
+        <div>{{ subscription.from }}</div>
+      </div>
       <div v-if="subscription.price === 0"
            class='subscription-middle'>Loading...</div>
       <div v-else
@@ -10,18 +13,56 @@
              up: subscription.flag === '1'
            }"
            class='subscription-middle'>{{ subscription.price }}</div>
-      <div class='subscription-right'>{{ subscription.to }}</div>
+      <div class='subscription-right'>
+        <img :src="imageTo">
+        <div>{{ subscription.to }}</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios"
+import { mapActions } from "vuex"
+
+import { BASE_URL } from "../consts"
+
 export default {
   props: ["subscription"],
 
   data: () => ({
     info: "",
+    interval: null,
   }),
+
+  computed: {
+    imageFrom: vm => `${BASE_URL}/${vm.subscription.imageUrlFrom}`,
+    imageTo: vm => `${BASE_URL}/${vm.subscription.imageUrlTo}`,
+  },
+
+  methods: {
+    ...mapActions(["updateData"]),
+  },
+
+  created() {
+    const { from, to, id, url } = this.subscription
+
+    const fetchData = () => {
+      axios.get(url).then(res => {
+        this.$store.dispatch("updateData", {
+          id,
+          price: res.data[to],
+        })
+      })
+    }
+
+    fetchData()
+    this.interval = setInterval(fetchData, 10000)
+  },
+
+  beforeDestroy() {
+    clearInterval(this.interval)
+  },
 }
 </script>
 
@@ -40,21 +81,41 @@ export default {
   border: 1px solid #e3e3e3;
 }
 
-.subscription-middle {
-  flex: 3;
+.subscription-left {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
 }
 
-.subscription-left {
-  flex: 1;
+.subscription-middle {
+  display: flex;
+  flex: 3;
+
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .subscription-right {
+  display: flex;
   flex: 1;
   margin-left: auto;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
 }
 
 .subscription-container {
   margin-bottom: 1rem;
+}
+
+img {
+  width: 30px;
+  height: 30px;
 }
 </style>
 

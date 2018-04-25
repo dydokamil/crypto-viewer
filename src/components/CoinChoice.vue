@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     onClickItem() {
-      this.chooseCoin(this.coin.shortName)
+      this.chooseCoin(this.coin.symbol)
     },
   },
 }
