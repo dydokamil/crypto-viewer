@@ -10,8 +10,8 @@
     <div v-else
          class='subscription-middle'>
       <span :class="{
-             down: subscription.flag === 1,
-             up: subscription.flag === 2
+             red: subscription.flag === 1,
+             green: subscription.flag === 2
            }">{{ subscription.price }}</span>
     </div>
     <div class='subscription-right'>
@@ -47,13 +47,6 @@ export default {
 </script>
 
 <style>
-.down {
-  color: #b85142;
-}
-.up {
-  color: #42b883;
-}
-
 .subscription {
   display: flex;
   padding: 1rem;

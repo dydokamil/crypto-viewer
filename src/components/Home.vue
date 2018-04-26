@@ -1,6 +1,10 @@
 <template>
   <div class="hello">
     <h1>Crypto Viewer</h1>
+    <transition name='fade'>
+      <div class='red'
+           v-if='error'>{{ error }}</div>
+    </transition>
     <add-subscription></add-subscription>
     <transition-group name='list-complete'>
       <SubscriptionContainer v-for="subscription in subscriptions"
@@ -18,7 +22,7 @@ import AddSubscription from "./AddSubscription.vue"
 
 export default {
   computed: {
-    ...mapGetters(["subscriptions"]),
+    ...mapGetters(["subscriptions", "error"]),
   },
   methods: { ...mapActions(["initCoinList"]) },
   props: {
@@ -56,5 +60,14 @@ export default {
 .list-complete-enter-active,
 .list-complete-leave-active {
   transition: all 500ms;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

@@ -6,6 +6,8 @@ import { BASE_MIN_URL } from "./consts"
 export const state = {
   subscriptions: {},
   coinList: null,
+  error: null,
+  clearErrorTimeout: null,
 }
 
 export const normalizeId = unnormalized =>
@@ -51,6 +53,18 @@ export const mutations = {
   _initCoinList: (state, data) => {
     state.coinList = data
   },
+
+  _setError(state, payload) {
+    state.error = payload.error
+    if (state.clearErrorTimeout !== null) {
+      clearTimeout(state.clearErrorTimeout)
+    }
+    state.clearErrorTimeout = payload.timeout
+  },
+
+  _removeError(state) {
+    state.error = null
+  },
 }
 
 export const actions = {
@@ -66,25 +80,32 @@ export const actions = {
     const imageUrlFrom = fromEntry.imageUrl
     const imageUrlTo = toEntry.imageUrl
 
-    const fetchData = () => {
-      axios.get(url).then(res => {
+    const fetchData = () => axios.get(url)
+
+    const fetchDataAndCommit = () =>
+      fetchData().then(res => {
         commit("_updateData", {
           id,
           price: res.data[to],
         })
       })
-    }
 
-    fetchData()
-    const interval = setInterval(fetchData, 10000)
+    fetchData().then(res => {
+      if (res.data.Response === "Error") {
+        const timeout = setTimeout(() => commit("_removeError"), 5000)
+        commit("_setError", { error: res.data.Message, timeout })
+      } else {
+        const interval = setInterval(fetchDataAndCommit, 10000)
 
-    commit("_addSubscription", {
-      ...payload,
-      id,
-      url,
-      imageUrlFrom,
-      imageUrlTo,
-      interval,
+        commit("_addSubscription", {
+          ...payload,
+          id,
+          url,
+          imageUrlFrom,
+          imageUrlTo,
+          interval,
+        })
+      }
     })
   },
   removeSubscription: ({ commit }, payload) =>
@@ -117,6 +138,7 @@ export const actions = {
 export const getters = {
   subscriptions: state => state.subscriptions,
   coinList: state => state.coinList,
+  error: state => state.error,
 }
 
 export default { state, mutations, actions, getters }

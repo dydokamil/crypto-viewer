@@ -47,4 +47,11 @@ export default {
     width: 1170px;
   }
 }
+
+.red {
+  color: #b85142;
+}
+.green {
+  color: #42b883;
+}
 </style>
