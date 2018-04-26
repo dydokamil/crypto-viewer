@@ -46,7 +46,7 @@ export default {
       } else if (direction === "to") {
         this.to = value
       }
-      console.log("new state", this.from, this.to)
+      // console.log("new state", this.from, this.to)
     },
   },
 }

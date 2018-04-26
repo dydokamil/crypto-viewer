@@ -1,7 +1,12 @@
 <template>
-  <component :subscription='subscription'
-             @flipComponent="flipComponent"
-             :is='currentComponent'></component>
+  <div class="subscription-container">
+    <transition name='fade'
+                mode='out-in'>
+      <component :subscription='subscription'
+                 @flipComponent="flipComponent"
+                 :is='currentComponent'></component>
+    </transition>
+  </div>
 </template>
 
 <script>
@@ -26,3 +31,13 @@ export default {
 }
 </script>
 
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

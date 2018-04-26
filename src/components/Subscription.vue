@@ -1,24 +1,22 @@
 <template>
   <div @click="$emit('flipComponent')"
-       class='subscription-container'>
-    <div class='subscription'>
-      <div class='subscription-left'>
-        <img :src="imageFrom">
-        <div>{{ subscription.from }}</div>
-      </div>
-      <div v-if="subscription.price === 0"
-           class='subscription-middle'>Loading...</div>
-      <div v-else
-           class='subscription-middle'>
-        <span :class="{
+       class='subscription'>
+    <div class='subscription-left'>
+      <img :src="imageFrom">
+      <div>{{ subscription.from }}</div>
+    </div>
+    <div v-if="subscription.price === 0"
+         class='subscription-middle'>Loading...</div>
+    <div v-else
+         class='subscription-middle'>
+      <span :class="{
              down: subscription.flag === 1,
              up: subscription.flag === 2
            }">{{ subscription.price }}</span>
-      </div>
-      <div class='subscription-right'>
-        <img :src="imageTo">
-        <div>{{ subscription.to }}</div>
-      </div>
+    </div>
+    <div class='subscription-right'>
+      <img :src="imageTo">
+      <div>{{ subscription.to }}</div>
     </div>
   </div>
 </template>

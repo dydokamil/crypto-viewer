@@ -38,8 +38,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.video-list {
-  list-style-type: none;
+.list-complete-item {
+  transition: all 1s;
+  display: inline-block;
+  margin-right: 10px;
 }
 .slide-enter-active,
 .slide-leave-active {
@@ -49,6 +51,9 @@ export default {
 .slide-leave-to {
   opacity: 0;
   transform: translateY(30px);
+}
+.list-complete-leave-active {
+  position: absolute;
 }
 
 h3 {

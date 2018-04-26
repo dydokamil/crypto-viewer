@@ -33,7 +33,7 @@ export default {
       this.closeChoices()
       this.query = coin
 
-      console.log(this.direction)
+      // console.log(this.direction)
 
       this.$emit("changeCurrency", this.query)
     },
