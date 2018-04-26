@@ -89,11 +89,6 @@ export default {
   align-items: center;
 }
 
-.subscription-container {
-  margin-bottom: 1rem;
-  cursor: pointer;
-}
-
 img {
   width: 30px;
   height: 30px;

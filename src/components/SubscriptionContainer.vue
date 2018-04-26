@@ -32,6 +32,11 @@ export default {
 </script>
 
 <style>
+.subscription-container {
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s;
