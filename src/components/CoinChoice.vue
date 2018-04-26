@@ -55,6 +55,8 @@ export default {
 }
 
 .info-container {
+  padding-right: 0.1rem;
+  padding-left: 0.1rem;
   flex: 4;
   display: flex;
   justify-content: center;
