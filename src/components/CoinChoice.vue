@@ -16,24 +16,24 @@ export default {
   props: {
     chooseCoin: {
       required: true,
-      type: Function,
+      type: Function
     },
     coin: {
-      required: true,
+      required: true
     },
     query: {
       required: true,
-      type: String,
-    },
+      type: String
+    }
   },
   computed: {
-    imageSrc: vm => `https://cryptocompare.com${vm.coin.imageUrl}`,
+    imageSrc: (vm) => `https://cryptocompare.com${vm.coin.imageUrl}`
   },
   methods: {
-    onClickItem() {
+    onClickItem () {
       this.chooseCoin(this.coin.symbol)
-    },
-  },
+    }
+  }
 }
 </script>
 

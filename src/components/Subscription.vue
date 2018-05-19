@@ -22,27 +22,26 @@
 </template>
 
 <script>
-import axios from "axios"
-import { mapActions } from "vuex"
+import { mapActions } from 'vuex'
 
-import { BASE_URL } from "../consts"
+import { BASE_URL } from '../consts'
 
 export default {
-  props: ["subscription"],
+  props: ['subscription'],
 
   data: () => ({
-    info: "",
-    interval: null,
+    info: '',
+    interval: null
   }),
 
   computed: {
-    imageFrom: vm => `${BASE_URL}/${vm.subscription.imageUrlFrom}`,
-    imageTo: vm => `${BASE_URL}/${vm.subscription.imageUrlTo}`,
+    imageFrom: (vm) => `${BASE_URL}/${vm.subscription.imageUrlFrom}`,
+    imageTo: (vm) => `${BASE_URL}/${vm.subscription.imageUrlTo}`
   },
 
   methods: {
-    ...mapActions(["updateData"]),
-  },
+    ...mapActions(['updateData'])
+  }
 }
 </script>
 
@@ -87,5 +86,3 @@ img {
   height: 30px;
 }
 </style>
-
-

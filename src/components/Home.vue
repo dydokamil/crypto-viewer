@@ -15,29 +15,28 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex"
+import { mapActions, mapGetters } from 'vuex'
 
-import SubscriptionContainer from "./SubscriptionContainer.vue"
-import AddSubscription from "./AddSubscription.vue"
+import SubscriptionContainer from './SubscriptionContainer.vue'
+import AddSubscription from './AddSubscription.vue'
 
 export default {
   computed: {
-    ...mapGetters(["subscriptions", "error"]),
+    ...mapGetters(['subscriptions', 'error'])
   },
-  methods: { ...mapActions(["initCoinList"]) },
+  methods: { ...mapActions(['initCoinList']) },
   props: {
-    msg: String,
+    msg: String
   },
   components: {
     SubscriptionContainer,
-    AddSubscription,
+    AddSubscription
   },
-  created() {
-    this.$store.dispatch("initCoinList")
-  },
+  created () {
+    this.$store.dispatch('initCoinList')
+  }
 }
 </script>
-
 
 <style scoped>
 .list-complete-move {

@@ -14,41 +14,41 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex"
+import { mapActions, mapGetters } from 'vuex'
 
-import CoinInput from "./CoinInput.vue"
+import CoinInput from './CoinInput.vue'
 
 export default {
   computed: {
-    ...mapGetters(["coinList"]),
+    ...mapGetters(['coinList'])
   },
   data: () => ({
-    from: "",
-    to: "",
+    from: '',
+    to: ''
   }),
   components: {
-    CoinInput,
+    CoinInput
   },
   methods: {
-    ...mapActions(["addSubscription"]),
-    newSubscription() {
+    ...mapActions(['addSubscription']),
+    newSubscription () {
       if (this.from.length && this.to.length) {
-        this.$store.dispatch("addSubscription", {
+        this.$store.dispatch('addSubscription', {
           from: this.from,
-          to: this.to,
+          to: this.to
         })
         // this.from = this.to = ""
       }
     },
-    setCurrency(direction, value) {
-      if (direction === "from") {
+    setCurrency (direction, value) {
+      if (direction === 'from') {
         this.from = value
-      } else if (direction === "to") {
+      } else if (direction === 'to') {
         this.to = value
       }
       // console.log("new state", this.from, this.to)
-    },
-  },
+    }
+  }
 }
 </script>
 

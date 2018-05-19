@@ -14,36 +14,36 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters } from 'vuex'
 
-import CoinChoice from "./CoinChoice.vue"
+import CoinChoice from './CoinChoice.vue'
 
 export default {
   props: {
     closeChoices: {
       required: true,
-      type: Function,
+      type: Function
     },
     chooseCoin: {
       required: true,
-      type: Function,
+      type: Function
     },
     query: {
       required: true,
-      type: String,
-    },
+      type: String
+    }
   },
   computed: {
-    ...mapGetters(["coinList"]),
-    coinListFiltered() {
-      return this.coinList.filter(coin =>
-        coin.fullName.toLowerCase().includes(this.query.toLowerCase()),
+    ...mapGetters(['coinList']),
+    coinListFiltered () {
+      return this.coinList.filter((coin) =>
+        coin.fullName.toLowerCase().includes(this.query.toLowerCase())
       )
-    },
+    }
   },
   components: {
-    CoinChoice,
-  },
+    CoinChoice
+  }
 }
 </script>
 

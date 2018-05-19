@@ -7,40 +7,37 @@
     <coin-choices :query="query"
                   :chooseCoin='chooseCoin'
                   :closeChoices='closeChoices'
-                  v-if='showChoices 
-                    && query.length > 0'></coin-choices>
+                  v-if='showChoices && query.length > 0' />
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex"
-import CoinChoices from "./CoinChoices.vue"
+import { mapGetters } from 'vuex'
+import CoinChoices from './CoinChoices.vue'
 
 export default {
   data: () => ({
     showChoices: true,
-    query: "",
+    query: ''
   }),
-  props: ["direction"],
+  props: ['direction'],
   computed: {
-    ...mapGetters(["coinList"]),
+    ...mapGetters(['coinList'])
   },
   methods: {
-    closeChoices() {
+    closeChoices () {
       this.showChoices = false
     },
-    chooseCoin(coin) {
+    chooseCoin (coin) {
       this.closeChoices()
       this.query = coin
 
-      // console.log(this.direction)
-
-      this.$emit("changeCurrency", this.query)
-    },
+      this.$emit('changeCurrency', this.query)
+    }
   },
   components: {
-    CoinChoices,
-  },
+    CoinChoices
+  }
 }
 </script>
 

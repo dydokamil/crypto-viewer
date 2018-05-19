@@ -1,20 +1,20 @@
-import axios from "axios"
-import _ from "lodash"
+import axios from 'axios'
+import _ from 'lodash'
 
-import { BASE_MIN_URL } from "./consts"
+import { BASE_MIN_URL } from './consts'
 
 export const state = {
   subscriptions: {},
   coinList: null,
   error: null,
-  clearErrorTimeout: null,
+  clearErrorTimeout: null
 }
 
 export const normalizeId = unnormalized =>
   unnormalized
-    .split("~")
+    .split('~')
     .slice(2, 4)
-    .join("")
+    .join('')
 
 export const mutations = {
   _addSubscription: (state, subscription) => {
@@ -23,7 +23,7 @@ export const mutations = {
 
     state.subscriptions = {
       ...state.subscriptions,
-      [id]: { ...subscription, price: 0 },
+      [id]: { ...subscription, price: 0 }
     }
   },
   _removeSubscription: (state, subscriptionId) => {
@@ -46,7 +46,7 @@ export const mutations = {
     state.subscriptions[payload.id] = {
       ...state.subscriptions[payload.id],
       ...payload,
-      flag,
+      flag
     }
   },
 
@@ -54,7 +54,7 @@ export const mutations = {
     state.coinList = data
   },
 
-  _setError(state, payload) {
+  _setError (state, payload) {
     state.error = payload.error
     if (state.clearErrorTimeout !== null) {
       clearTimeout(state.clearErrorTimeout)
@@ -62,9 +62,9 @@ export const mutations = {
     state.clearErrorTimeout = payload.timeout
   },
 
-  _removeError(state) {
+  _removeError (state) {
     state.error = null
-  },
+  }
 }
 
 export const actions = {
@@ -84,39 +84,39 @@ export const actions = {
 
     const fetchDataAndCommit = () =>
       fetchData().then(res => {
-        commit("_updateData", {
+        commit('_updateData', {
           id,
-          price: res.data[to],
+          price: res.data[to]
         })
       })
 
     fetchData().then(res => {
-      if (res.data.Response === "Error") {
-        const timeout = setTimeout(() => commit("_removeError"), 5000)
-        commit("_setError", { error: res.data.Message, timeout })
+      if (res.data.Response === 'Error') {
+        const timeout = setTimeout(() => commit('_removeError'), 5000)
+        commit('_setError', { error: res.data.Message, timeout })
       } else {
         const interval = setInterval(fetchDataAndCommit, 10000)
 
-        commit("_addSubscription", {
+        commit('_addSubscription', {
           ...payload,
           id,
           url,
           imageUrlFrom,
           imageUrlTo,
-          interval,
+          interval
         })
       }
     })
   },
   removeSubscription: ({ commit }, payload) =>
-    commit("_removeSubscription", payload.id),
+    commit('_removeSubscription', payload.id),
 
   updateData: ({ commit }, payload) => {
-    commit("_updateData", payload)
+    commit('_updateData', payload)
   },
 
   initCoinList: ({ commit }) => {
-    const URL = "https://min-api.cryptocompare.com/data/all/coinlist"
+    const URL = 'https://min-api.cryptocompare.com/data/all/coinlist'
 
     axios.get(URL).then(res => {
       const data = Object.values(res.data.Data)
@@ -126,19 +126,19 @@ export const actions = {
         // name: coin.CoinName,
         fullName: coin.FullName,
         // shortName: coin.Name,
-        symbol: coin.Symbol,
+        symbol: coin.Symbol
       }))
-      coinData = _.sortBy(coinData, "fullName")
+      coinData = _.sortBy(coinData, 'fullName')
       // console.log(coinData)
-      commit("_initCoinList", coinData)
+      commit('_initCoinList', coinData)
     })
-  },
+  }
 }
 
 export const getters = {
   subscriptions: state => state.subscriptions,
   coinList: state => state.coinList,
-  error: state => state.error,
+  error: state => state.error
 }
 
 export default { state, mutations, actions, getters }

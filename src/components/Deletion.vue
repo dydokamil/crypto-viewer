@@ -12,24 +12,19 @@
 </template>
 
 <script>
-import axios from "axios"
-import { mapActions } from "vuex"
-
-import { BASE_URL } from "../consts"
-
 export default {
-  props: ["subscription"],
+  props: ['subscription'],
 
   data: () => ({
-    info: "",
-    interval: null,
+    info: '',
+    interval: null
   }),
 
   methods: {
-    deleteSubscription() {
-      this.$store.dispatch("removeSubscription", { id: this.subscription.id })
-    },
-  },
+    deleteSubscription () {
+      this.$store.dispatch('removeSubscription', { id: this.subscription.id })
+    }
+  }
 }
 </script>
 
@@ -54,5 +49,3 @@ button:hover {
   color: #42b883;
 }
 </style>
-
-

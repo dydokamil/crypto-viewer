@@ -10,24 +10,24 @@
 </template>
 
 <script>
-import Subscription from "./Subscription.vue"
-import Deletion from "./Deletion.vue"
+import Subscription from './Subscription.vue'
+import Deletion from './Deletion.vue'
 
 export default {
-  props: ["subscription"],
+  props: ['subscription'],
   data: () => ({
-    currentComponent: "Subscription",
+    currentComponent: 'Subscription'
   }),
   methods: {
-    flipComponent() {
+    flipComponent () {
       this.currentComponent =
-        this.currentComponent === "Subscription" ? "Deletion" : "Subscription"
-    },
+        this.currentComponent === 'Subscription' ? 'Deletion' : 'Subscription'
+    }
   },
   components: {
     Subscription,
-    Deletion,
-  },
+    Deletion
+  }
 }
 </script>
 
