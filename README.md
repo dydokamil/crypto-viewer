@@ -1,6 +1,19 @@
-# foo
+# Crypto Viewer
 
-> A Vue.js project
+> A Vue.js project for viewing the cryptocurrency market.
+
+## Quickstart
+
+    yarn
+    yarn start
+    
+## Add a new trading view
+
+![Add trade view](https://github.com/dydokamil/crypto-viewer/raw/master/showcase/add.png)
+
+## Trading view menu
+
+![Trade view menu](https://github.com/dydokamil/crypto-viewer/raw/master/showcase/back.png)
 
 ## Build Setup
 
